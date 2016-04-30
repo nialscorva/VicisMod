@@ -28,4 +28,22 @@ PowWowMk4
 Will wirelessly transport unlimited pps per machine in a 7m radius sphere.
 Cost: 1 T4 Battery - 1728 Titanium, 864 Nickel, 405 Gold, 162 Tin Plates
 
-*What you lose in capacity, you gain in powered surface area!
+*What you lose in capacity, you gain in powered surface area!*
+
+# Version 3
+CompactSolarMk1
+===============
+A compact version of the Solar Panel, takes the place of 8
+Cost: 8 Solar Panels, 8 Crystal Deposit
+
+CompactSolarMk2
+===============
+A compact version of the Solar Panel, takes the place of 64
+Cost: 8 CompactSolarMk1, 64 Crystal Deposit
+
+CompactSolarMk3
+===============
+A compact version of the Solar Panel, takes the place of 512
+Cost: 8 CompactSolarMk2, 512 Crystal Deposit
+*Ignores T4 and T5 battery transfer rates, as is pletiful or rush mode this can
+generate > 10,000 pps*

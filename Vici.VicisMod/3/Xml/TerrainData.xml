@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ArrayOfTerrainDataEntry xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+	<TerrainDataEntry>
+		<Key>Vici.PowWow</Key>
+		<Name>PowWow</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.PowWowMk1</Key>
+				<Name>PowWow Mk1</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 10 ppspm, range 3m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk2</Key>
+				<Name>PowWow Mk2</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 40 ppspm, range 4m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk3</Key>
+				<Name>PowWow Mk3</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 320 ppspm, range 5m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk4</Key>
+				<Name>PowWow Mk4</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>No limit to power transfer, range 7m</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+	<TerrainDataEntry>
+		<Key>Vici.CompactSolar</Key>
+		<Name>Compact Solar</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk1</Key>
+				<Name>Compact Solar Mk1</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 8 T1 Solar Panels</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk2</Key>
+				<Name>Compact Solar Mk2</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 64 T1 Solar Panels</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk3</Key>
+				<Name>Compact Solar Mk3</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 512 T1 Solar Panels</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+</ArrayOfTerrainDataEntry>
