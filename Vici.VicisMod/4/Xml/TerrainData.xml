@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ArrayOfTerrainDataEntry xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+	<TerrainDataEntry>
+		<Key>Vici.PowWow</Key>
+		<Name>PowWow</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<Category>Machine</Category>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.PowWowMk1</Key>
+				<Name>PowWow Mk1</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 10 ppspm, range 3m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk2</Key>
+				<Name>PowWow Mk2</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 40 ppspm, range 4m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk3</Key>
+				<Name>PowWow Mk3</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>Transmits 320 ppspm, range 5m</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.PowWowMk4</Key>
+				<Name>PowWow Mk4</Name>
+				<IconName>Research Assembler</IconName>
+				<Description>No limit to power transfer, range 7m</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+	<TerrainDataEntry>
+		<Key>Vici.CompactSolar</Key>
+		<Name>Compact Solar</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<Category>Machine</Category>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk1</Key>
+				<Name>Compact Solar Mk1</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 8 T1 Solar Panels</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk2</Key>
+				<Name>Compact Solar Mk2</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 64 T1 Solar Panels</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.CompactSolarMk3</Key>
+				<Name>Compact Solar Mk3</Name>
+				<IconName>Solar Panel</IconName>
+				<Description>Equal to 512 T1 Solar Panels</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+	<TerrainDataEntry>
+		<Key>Vici.MassCrateModule</Key>
+		<Name>Mass Crate Module</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<Category>Machine</Category>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.MassCrateModuleVanilla</Key>
+				<Name>Mass Crate Module Vanilla</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores up to 25 items, just like vanilla</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModuleLinker</Key>
+				<Name>Mass Crate Module Linker</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Cheap, used to link up different mass storage groups</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModule100</Key>
+				<Name>Mass Crate Module 100</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Like a Storage Hopper, but for Mass Storage</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModule200</Key>
+				<Name>Mass Crate Module 200</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores 200 of 1 type of item</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModule500</Key>
+				<Name>Mass Crate Module 500</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores 500 of 1 type of item</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModule1000</Key>
+				<Name>Mass Crate Module 1000</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores 1000 of 1 type of item</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModule10000</Key>
+				<Name>Mass Crate Module 10000</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores 10000 of 1 type of item</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassCrateModulePoweredMk1</Key>
+				<Name>Mass Crate Module Powered Mk1</Name>
+				<IconName>Bound Metal Crate</IconName>
+				<Description>Stores as much as you can give it, assuming you can provide enough power (1 power / 10 items stored)</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+		<TerrainDataEntry>
+		<Key>Vici.MassGiver</Key>
+		<Name>Mass Giver</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<Category>Machine</Category>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.MassGiverVanilla</Key>
+				<Name>Mass Giver Vanilla</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Vici's version of the Mass Storage Output Port</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassGiverMk1</Key>
+				<Name>Mass Giver Mk1</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Carries 5 items at a time, moves at 1 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassGiverMk2</Key>
+				<Name>Mass Giver Mk2</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Carries 5 items at a time, moves at 3 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassGiverMk3</Key>
+				<Name>Mass Giver Mk3</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Carries 30 items at a time, moves at 2 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassGiverMk4</Key>
+				<Name>Mass Giver Mk4</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Carries 10 items at a time, teleports to the destination and flies 5 m/s back. 256 power per teleport</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassGiverMk5</Key>
+				<Name>Mass Giver Mk5</Name>
+				<IconName>Mass Storage Output Port</IconName>
+				<Description>Carries 1 item at a time, teleports there and back. 512 power per teleport</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+	<TerrainDataEntry>
+		<Key>Vici.MassTaker</Key>
+		<Name>Mass Taker</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>false</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Metal</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<Category>Machine</Category>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+		<Values>
+			<ValueEntry>
+				<Key>Vici.MassTakerVanilla</Key>
+				<Name>Mass Taker Vanilla</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Vici's version of the Mass Storage Input Port</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassTakerMk1</Key>
+				<Name>Mass Taker Mk1</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Carries 5 items at a time, moves at 1 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassTakerMk2</Key>
+				<Name>Mass Taker Mk2</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Carries 5 items at a time, moves at 3 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassTakerMk3</Key>
+				<Name>Mass Taker Mk3</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Carries 30 items at a time, moves at 2 m/s</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassTakerMk4</Key>
+				<Name>Mass Taker Mk4</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Carries 10 items at a time, teleports to the destination and flies 5 m/s back. 256 power per teleport</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Key>Vici.MassTakerMk5</Key>
+				<Name>Mass Taker Mk5</Name>
+				<IconName>Mass Storage Input Port</IconName>
+				<Description>Carries 1 item at a time, teleports there and back. 512 power per teleport</Description>
+			</ValueEntry>
+		</Values>
+	</TerrainDataEntry>
+</ArrayOfTerrainDataEntry>
