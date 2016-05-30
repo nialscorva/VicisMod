@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using VicisFCEMod.Mod;
 using VicisFCEMod.Util;
+using FortressCraft.Community;
 
 namespace VicisFCEMod.Machines {
-    public abstract class MassTaker : MachineEntity {
+    public abstract class MassTaker : MachineEntity, CommunityItemInterface {
+
+        protected static int id = 0;
+        protected int myId;
 
         public const string CUBE_NAME = "Vici.MassTaker";
 
@@ -52,6 +53,7 @@ namespace VicisFCEMod.Machines {
                 parameters.Value,
                 parameters.Position,
                 parameters.Segment) {
+            myId = id++;
             mbNeedsLowFrequencyUpdate = true;
             mbNeedsUnityUpdate = true;
             batch = 1;
@@ -65,18 +67,18 @@ namespace VicisFCEMod.Machines {
         protected virtual bool AttemptGiveItem() {
             if (items.Count == 0 || getDropOffSize() == 0) return false;
 
-            ItemBase item = ItemBaseUtil.newInstance(items[0]);
+            ItemBase item = Util.ItemBaseUtil.newInstance(items[0]);
             int count = getDropOffSize();
-            if (ItemBaseUtil.isStack(items[0])) {
+            if (Util.ItemBaseUtil.isStack(items[0])) {
                 // We have a stacked item, make sure to carry only what we need
-                ItemBaseUtil.decrementStack(items[0], count);
-                if (ItemBaseUtil.getAmount(items[0]) == 0) {
+                Util.ItemBaseUtil.decrementStack(items[0], count);
+                if (Util.ItemBaseUtil.getAmount(items[0]) == 0) {
                     // Stack no longer exists, remove it.
                     // Don't need to set the amount on the item since it already had a =< batch size amount
                     items.RemoveAt(0);
                 } else {
                     // Stack still exists, so we need to set the amount that we removed
-                    ItemBaseUtil.setAmount(item, count);
+                    Util.ItemBaseUtil.setAmount(item, count);
                 }
             } else {
                 // No stack, no problem!
@@ -149,20 +151,14 @@ namespace VicisFCEMod.Machines {
 
         protected virtual void retrievingDrone(float timeJump) {
             if (headTo == null) {
-                VicisMod.log(getPrefix(), "Retrieving drone");
                 retrieveDrone(mUnityDroneRestPos, timeJump);
             }
         }
 
         protected virtual void sendingDrone(float timeJump) {
             if (carriedItems.Count > 0 && headTo != null) {
-                VicisMod.log(getPrefix(), "Sending drone to drop off " + carriedItems[0].GetDisplayString() + " from location " +
-                    VicisMod.getPosString(headTo.mnX, headTo.mnY, headTo.mnZ) + ", I'm at " + VicisMod.getPosString(mnX, mnY, mnZ) +
-                    ", which is " + MassCrateModuleManager.calcDist(headTo, this) + "m away");
 
                 getTargetCoords();
-
-                VicisMod.log(getPrefix(), "Target coords are " + targetCoords + ", drone is at " + drone.getPos());
 
                 if (targetCoords == Vector3.zero) {
                     return;
@@ -237,11 +233,20 @@ namespace VicisFCEMod.Machines {
 
             if (!linkedToGo) droneLogic(LowFrequencyThread.mrPreviousUpdateTimeStep);
 
-            if (getStoredItemsCount() >= maxItems) return;
+            if (getStoredItemsCount() >= maxItems) {
+                return;
+            }
 
             VicisMod.log(getPrefix(), "Looking for ConveyorEntities");
-
-            pickUpFromConveyors();
+            
+            if(getStoredItemsCount() < maxItems) {
+                VicisMod.log(getPrefix(), "Attempting to get item from surroundings");
+                ItemBase item = this.TakeFromSurrounding();
+                if (item != null) {
+                    VicisMod.log(getPrefix(), "Got a " + item.GetDisplayString());
+                    addItem(item);
+                }
+            }
         }
 
         protected virtual void pickUpFromConveyors() {
@@ -275,24 +280,25 @@ namespace VicisFCEMod.Machines {
         }
 
         protected virtual bool addItem(ItemBase item) {
-            if (getStoredItemsCount() >= maxItems) return false;
-            if (item.mType == ItemType.ItemCubeStack || item.mType == ItemType.ItemStack) {
+            if ((getStoredItemsCount() + item.getAmount()) > maxItems) return false;
+            if (item.isStack()) {
                 for (int j = 0; j < items.Count; ++j) {
                     // Check if we already have this type of stack
-                    if (item.mnItemID == items[j].mnItemID && ItemBaseUtil.compareBaseDeep(item, items[j])) {
-                        if (item.mType == ItemType.ItemCubeStack) ++(items[j] as ItemCubeStack).mnAmount;
-                        else ++(items[j] as ItemStack).mnAmount;
+                    if (item.compareBaseDeep(items[j])) {
+                        items[j].incrementStack(1);
+                        MarkDirtyDelayed();
                         return true;
                     }
                 }
             }
             items.Add(item);
+            MarkDirtyDelayed();
             return true;
         }
 
         protected virtual int getDropOffSize() {
             if (items.Count == 0) return 0;
-            return Math.Min(batch, ItemBaseUtil.getAmount(items[0]));
+            return Math.Min(batch, Util.ItemBaseUtil.getAmount(items[0]));
         }
 
         protected virtual bool isConveyorFacingMe(ConveyorEntity conv) {
@@ -364,7 +370,7 @@ namespace VicisFCEMod.Machines {
         }
 
         protected int getItemCount(List<ItemBase> items) {
-            return ItemBaseUtil.getItemCount(items);
+            return Util.ItemBaseUtil.getItemCount(items);
         }
 
         public override void OnDelete() {
@@ -374,6 +380,39 @@ namespace VicisFCEMod.Machines {
             foreach (ItemBase it in carriedItems) {
                 ItemManager.instance.DropItem(it, mnX, mnY, mnZ, Vector3.zero);
             }
+        }
+
+        public bool HasItems() {
+            return false;
+        }
+
+        public bool HasItem(ItemBase item) {
+            return false;
+        }
+
+        public bool HasItems(ItemBase item, out int amount) {
+            amount = 0;
+            return false;
+        }
+
+        public bool HasFreeSpace(uint amount) {
+            return GetFreeSpace() >= amount;
+        }
+
+        public int GetFreeSpace() {
+            return maxItems - items.getItemCount();
+        }
+
+        public bool GiveItem(ItemBase item) {
+            return addItem(item);
+        }
+
+        public ItemBase TakeItem(ItemBase item) {
+            return null;
+        }
+
+        public ItemBase TakeAnyItem() {
+            return null;
         }
     }
 

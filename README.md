@@ -97,3 +97,17 @@ MassGivers
     * Carries 10 items at a time, teleports to drop off crate for 256 power, flies back at 5 m/s
 * MassGiverMk5 - requires Vici's Mass Storage Mk5 research
     * Carries 1 item at a time, teleports to drop off and back for 512 power each way
+
+# Version 5
+Fixed Crashes caused by MassCrateModules.
+
+Crystal Converters
+==================
+Each one will convert their associated crystals for 100k power
+
+* Diamond To Emerald
+* Emerald To Ruby
+* Ruby To Sapphire
+* Sapphire To Topaz
+* Topaz To Sugalite
+* Sugalite To Diamond

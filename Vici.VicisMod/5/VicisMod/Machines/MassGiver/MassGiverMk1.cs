@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace VicisFCEMod.Machines {
     public class MassGiverMk1 : MassGiver {
@@ -26,7 +21,7 @@ namespace VicisFCEMod.Machines {
         }
 
         protected override string getPrefix() {
-            return VALUE_NAME;
+            return VALUE_NAME + myId;
         }
 
         protected override void retrieveDrone(Vector3 coords, float timeJump) {

@@ -9,10 +9,11 @@ namespace VicisFCEMod.Mod {
             Version1,
             Version2,
             Version3,
-            Version4
+            Version4,
+            Version5
         }
 
-        public const VicisModVersion CURRENT_VERSION = VicisModVersion.Version4;
+        public const VicisModVersion CURRENT_VERSION = VicisModVersion.Version5;
 
         private const string LOGGER_PREFIX = "Vici.VicisMod";
 
@@ -53,7 +54,7 @@ namespace VicisFCEMod.Mod {
         private ushort massTakerMk4Value;
         private ushort massTakerMk5Value;
 
-        private const bool DEBUG = true;
+        private const bool DEBUG = false;
 
         public static void log(String prefix, String msg) {
             if (DEBUG) {
@@ -181,7 +182,7 @@ namespace VicisFCEMod.Mod {
                     }
                     T tmcm = segment.SearchEntity(x, y, z) as T;
                     if (tmcm != null && tmcm is T) {
-                        ret.Add((T)tmcm);
+                        ret.Add(tmcm);
                     }
                 }
             }

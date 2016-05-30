@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using VicisFCEMod.Mod;
 using VicisFCEMod.Util;
+using System.Diagnostics;
 
 namespace VicisFCEMod.Machines {
     public abstract class MassCrateModule : MachineEntity {
@@ -47,7 +48,7 @@ namespace VicisFCEMod.Machines {
 
         public abstract string getPrefix();
 
-        public int getNumItems() { return ItemBaseUtil.getItemCount(items); }
+        public int getNumItems() { return items.getItemCount(); }
         public int getMaxItems() { return maxItems; }
         public int getNumBins() { return items.Count; }
         public int getMaxBins() { return maxBins; }
@@ -143,21 +144,25 @@ namespace VicisFCEMod.Machines {
         }
 
         // An item that we'll try taking, and a flag whether we should actually take it or not (we could just be checking if we have space)
-        public bool AttemptGiveItem(ItemBase item, int amount = 1, bool actuallyTakeItem = true) {
+        public bool AttemptGiveItem(ItemBase item, int amount, bool actuallyTakeItem = true) {
             VicisMod.log(getPrefix(), "Attempting to receive " + amount + " item " + item.GetDisplayString() + " with id = " + item.mnItemID + " and type = " + item.mType);
             // Can we even take this item(s)?
             if (getNumItems() + amount > maxItems) return false;
-            for (int i = 0; i < items.Count; ++i) {
+            if (!actuallyTakeItem && getNumItems() == 0 && maxItems > 0 && maxBins > 0 && maxBinSize > 0) {
+                return true;
+            }
+            for (int i = 0; item.isStack() && i < items.Count; ++i) {
                 if(items[i].isStackAndSame(item)) {
                     if ((items[i].getAmount() + amount) <= maxBinSize) {
-                        if (actuallyTakeItem) items[i].incrementStack(amount);
-                        MarkDirtyDelayed();
+                        if (actuallyTakeItem) {
+                            items[i].incrementStack(amount);
+                            MarkDirtyDelayed();
+                        }
                         return true;
                     }
                 }
             }
-
-            if(item.isStack()) {
+            if (item.isStack() && items.Count >= maxBins) {
                 VicisMod.log(getPrefix(), "Couldn't find stack for " + item.GetDisplayString() + ", returning false");
                 return false;
             }
@@ -165,8 +170,8 @@ namespace VicisFCEMod.Machines {
             if (items.Count < maxBins) {
                 if (actuallyTakeItem) {
                     items.Add(item);
+                    MarkDirtyDelayed();
                 }
-                MarkDirtyDelayed();
                 return true;
             }
 
@@ -178,8 +183,9 @@ namespace VicisFCEMod.Machines {
         public ItemBase AttemptTakeItem(ItemBase item, int amount = 1, bool actuallyGiveItem = true) {
             VicisMod.log(getPrefix(), "Attempting to give " + amount + " item " + item.GetDisplayString() + " with id = " + item.mnItemID + " and type = " + item.mType);
             if (getNumItems() == 0) return null;
+            bool itemIsStack = item.isStack();
             for (int i = 0; i < items.Count; ++i) {
-                if(items[i].isStackAndSame(item)) {
+                if(itemIsStack && items[i].isStackAndSame(item)) {
                     VicisMod.log(getPrefix(), "Found a CubeStack " + items[i].GetDisplayString() + ", which is storing " + items[i].getAmount() + " blocks");
                     int amntTaken = Math.Min(amount, items[i].getAmount());
                     ItemBase ret = ItemBaseUtil.newInstance(items[i]);
@@ -191,8 +197,8 @@ namespace VicisFCEMod.Machines {
                             VicisMod.log(getPrefix(), "There are " + items[i].getAmount() + " items for " + items[i].GetDisplayString() + ", removing it from items");
                             items.RemoveAt(i);
                         }
+                        MarkDirtyDelayed();
                     }
-                    MarkDirtyDelayed();
                     return ret;
                 } else if (!item.isStack() && items[i].compareBase(item)) {
                     ItemBase ret = items[i];
@@ -200,8 +206,8 @@ namespace VicisFCEMod.Machines {
                     if (actuallyGiveItem) {
                         VicisMod.log(getPrefix(), "Removing from items");
                         items.RemoveAt(i);
+                        MarkDirtyDelayed();
                     }
-                    MarkDirtyDelayed();
                     return ret;
                 }
             }
@@ -210,7 +216,7 @@ namespace VicisFCEMod.Machines {
         }
 
         public override string GetPopupText() {
-            string ret = "I'm connected to " + manager.modules.Keys.Count + " modules" +
+            string ret = "I'm connected to " + manager.modules.Count + " modules" +
                 "\nNetwork storing " + manager.getNumItems() + " / " + manager.getMaxItems() + " items";
             if (maxItems > 0) {
                 ret += "\nThis crate storing " + getNumItems() + " / " + maxItems + " items";

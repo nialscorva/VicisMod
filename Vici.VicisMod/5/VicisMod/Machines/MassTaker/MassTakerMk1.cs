@@ -34,7 +34,7 @@ public class MassTakerMk1 : MassTaker {
         }
 
         protected override string getPrefix() {
-            return VALUE_NAME;
+            return VALUE_NAME + myId;
         }
 
         protected override void retrieveDrone(Vector3 coords, float timeJump) {

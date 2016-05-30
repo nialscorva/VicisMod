@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using FortressCraft.Community;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using VicisFCEMod.Mod;
 using VicisFCEMod.Util;
 
 namespace VicisFCEMod.Machines {
-    public abstract class MassGiver : MachineEntity {
+    public abstract class MassGiver : MachineEntity, CommunityItemInterface {
+
+        protected static int id = 0;
+        protected int myId;
 
         public const string CUBE_NAME = "Vici.MassGiver";
 
@@ -49,6 +53,7 @@ namespace VicisFCEMod.Machines {
                 parameters.Value,
                 parameters.Position,
                 parameters.Segment) {
+            myId = id++;
             mbNeedsLowFrequencyUpdate = true;
             mbNeedsUnityUpdate = true;
             batch = 1;
@@ -62,7 +67,6 @@ namespace VicisFCEMod.Machines {
 
         protected virtual bool AttemptTakeItem() {
             if (getCarriedItemCount() > 0) return false;
-            //if ((batch + getStoredItemsCount()) > maxItems) return false;
 
             VicisMod.log(getPrefix(), "Attempting to get item " + chosen.GetDisplayString());
             ItemBase item = headTo.AttemptTakeItem(chosen, batch);
@@ -196,20 +200,14 @@ namespace VicisFCEMod.Machines {
 
         protected virtual void retrievingDrone(float timeJump) {
             if (headTo == null) {
-                VicisMod.log(getPrefix(), "Retrieving drone");
                 retrieveDrone(mUnityDroneRestPos, timeJump);
             }
         }
 
         protected virtual void sendingDrone(float timeJump) {
             if (carriedItems.Count == 0 && headTo != null && items.Count < maxItems) {
-                VicisMod.log(getPrefix(), "Sending drone to pick up " + chosen.GetDisplayString() + " from location " +
-                    VicisMod.getPosString(headTo.mnX, headTo.mnY, headTo.mnZ) + ", I'm at " + VicisMod.getPosString(mnX, mnY, mnZ) +
-                    ", which is " + MassCrateModuleManager.calcDist(headTo, this) + "m away");
 
                 getTargetCoords();
-
-                VicisMod.log(getPrefix(), "Target coords are " + targetCoords + ", drone is at " + drone.getPos());
 
                 if (targetCoords == Vector3.zero) {
                     return;
@@ -269,8 +267,18 @@ namespace VicisFCEMod.Machines {
 
             if (!linkedToGo) droneLogic(LowFrequencyThread.mrPreviousUpdateTimeStep);
 
-            if (items.Count == 0) return;
-            dropOffToConveyors();
+            if (items.Count == 0) {
+                return;
+            }
+            
+            if(getStoredItemsCount() > 0) {
+                ItemBase item = TakeAnyItem();
+                if (item != null) {
+                    if (!this.GiveToSurrounding(item)) {
+                        items.Insert(0, item);
+                    }
+                }
+            }
         }
 
         protected virtual void dropOffToConveyors() {
@@ -298,12 +306,12 @@ namespace VicisFCEMod.Machines {
                             items.RemoveAt(0);
                         }
                     } else if (items[0].mType == ItemType.ItemStack) {
-                        ItemStack a = ItemBaseUtil.newInstance(items[0]) as ItemStack;
+                        ItemStack a = Util.ItemBaseUtil.newInstance(items[0]) as ItemStack;
                         a.mnAmount = 1;
-                        ItemBaseUtil.decrementStack(items[0], 1);
+                        Util.ItemBaseUtil.decrementStack(items[0], 1);
                         c.AddItem(a);
                         c.mItemForwards = forwards;
-                        if (ItemBaseUtil.getAmount(items[0]) == 0) {
+                        if (Util.ItemBaseUtil.getAmount(items[0]) == 0) {
                             VicisMod.log(getPrefix(), "Removing item " + a.GetDisplayString() + " from items list");
                             items.RemoveAt(0);
                         }
@@ -426,7 +434,7 @@ namespace VicisFCEMod.Machines {
         }
 
         protected virtual int getItemCount(List<ItemBase> items) {
-            return ItemBaseUtil.getItemCount(items);
+            return Util.ItemBaseUtil.getItemCount(items);
         }
 
         public override void OnDelete() {
@@ -436,6 +444,68 @@ namespace VicisFCEMod.Machines {
             foreach (ItemBase it in carriedItems) {
                 ItemManager.instance.DropItem(it, mnX, mnY, mnZ, Vector3.zero);
             }
+        }
+
+        public bool HasItems() {
+            return items.getItemCount() > 0;
+        }
+
+        public bool HasItem(ItemBase item) {
+            for(int i = 0; i < items.Count; ++i) {
+                if (item.compareBaseDeep(items[i])) return true;
+            }
+            return false;
+        }
+
+        public bool HasItems(ItemBase item, out int amount) {
+            amount = 0;
+            for(int i = 0; i < items.Count; ++i) {
+                if(item.compareBase(items[i])) {
+                    amount = items[i].getAmount();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool HasFreeSpace(uint amount) {
+            return GetFreeSpace() >= amount;
+        }
+
+        public int GetFreeSpace() {
+            return maxItems - items.getItemCount();
+        }
+
+        public bool GiveItem(ItemBase item) {
+            return false;
+        }
+
+        public ItemBase TakeItem(ItemBase item) {
+            if (getStoredItemsCount() == 0) return null;
+            for(int i = 0; i < items.Count; ++i) {
+                if(item.compareBase(items[i])) {
+                    ItemBase ret = Util.ItemBaseUtil.newInstance(items[i]);
+                    ret.setAmount(1);
+                    items[i].decrementStack(1);
+                    if(items[i].getAmount() == 0 || !items[i].IsStack()) {
+                        items.RemoveAt(i);
+                    }
+                    MarkDirtyDelayed();
+                    return ret;
+                }
+            }
+            return null;
+        }
+
+        public ItemBase TakeAnyItem() {
+            if (getStoredItemsCount() == 0) return null;
+            ItemBase ret = Util.ItemBaseUtil.newInstance(items[0]);
+            ret.setAmount(1);
+            items[0].decrementStack(1);
+            if (items[0].getAmount() == 0 || !items[0].IsStack()) {
+                items.RemoveAt(0);
+            }
+            return ret;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using VicisFCEMod.Mod;
 
@@ -10,15 +6,11 @@ namespace VicisFCEMod.Machines {
     public class MassCrateModuleManager {
 
         public const string LOGGER_PREFIX = "Vici.MassCrateModuleManager";
-
-        // I feel dirty about this - Sets weren't added to C# until .NET 3.5, but I don't want to rely on 
-        // others having their .NET framework up to date (not entirely sure if it's possible to have out of
-        // date .NET frameworks with this game). Instead, I'll use a Dictionary to represent my Set for me.
-        public Dictionary<MassCrateModule, MassCrateModule> modules = new Dictionary<MassCrateModule, MassCrateModule>();
-        //public Dictionary<ushort, Dictionary<ushort, MassCrateModule>> locations = new Dictionary<ushort, Dictionary<ushort, MassCrateModule>>();
+        public List<MassCrateModule> modules = new List<MassCrateModule>();
 
         public void Add(MassCrateModule mcm) {
-            modules.Add(mcm, mcm);
+            if (modules.Contains(mcm)) return;
+            modules.Add(mcm);
             mcm.manager = this;
         }
 
@@ -79,7 +71,7 @@ namespace VicisFCEMod.Machines {
 
         public List<MassCrateModule> floodFillFun(MassCrateModule start) {
             // Make sure we start of correct
-            foreach (MassCrateModule m in modules.Keys) m.ping = false;
+            foreach (MassCrateModule m in modules) m.ping = false;
 
             // We've already pinged this guy.
             start.ping = true;
@@ -107,15 +99,15 @@ namespace VicisFCEMod.Machines {
 
         public void AddAll(List<MassCrateModule> mcms) {
             foreach (MassCrateModule mcm in mcms) {
-                modules.Add(mcm, mcm);
+                modules.Add(mcm);
                 mcm.manager = this;
             }
         }
 
-        public bool AttemptGiveItem(ItemBase item) {
-            foreach (MassCrateModule mcm in modules.Keys) {
+        public bool AttemptGiveItem(ItemBase item, int amount) {
+            foreach (MassCrateModule mcm in modules) {
                 VicisMod.log(LOGGER_PREFIX, "Attempting to give " + item.GetDisplayString() + " to a module");
-                if (mcm.AttemptGiveItem(item)) return true;
+                if (mcm.AttemptGiveItem(item, amount)) return true;
                 VicisMod.log(LOGGER_PREFIX, "Failed, will attempt again");
             }
             VicisMod.log(LOGGER_PREFIX, "Could not give item " + item.GetDisplayString());
@@ -123,7 +115,7 @@ namespace VicisFCEMod.Machines {
         }
 
         public ItemBase AttemptTakeItem(ItemBase item) {
-            foreach (MassCrateModule mcm in modules.Keys) {
+            foreach (MassCrateModule mcm in modules) {
                 VicisMod.log(LOGGER_PREFIX, "Attempting to take " + item.GetDisplayString() + " to a module");
                 ItemBase ret = mcm.AttemptTakeItem(item);
                 if (ret != null) return ret;
@@ -135,9 +127,9 @@ namespace VicisFCEMod.Machines {
         }
 
         public MassCrateModule provideCrateDropoff(ItemBase item, MassTaker taker, int amount) {
-            float dist = 999999999;
+            float dist = 99999999999;
             MassCrateModule ret = null;
-            foreach (MassCrateModule mcm in modules.Keys) {
+            foreach (MassCrateModule mcm in modules) {
                 if (mcm.AttemptGiveItem(item, amount, false)) {
                     float tdist = calcDist(mcm, taker);
                     if (tdist < dist) {
@@ -150,31 +142,34 @@ namespace VicisFCEMod.Machines {
         }
 
         public MassCrateModule provideCratePickup(ItemBase item, MassGiver giver, int amount) {
-            float dist = 999999999;
+            float dist = 99999999999;
             MassCrateModule ret = null;
-            foreach (MassCrateModule mcm in modules.Keys) {
+            
+            foreach (MassCrateModule mcm in modules) {
                 if (mcm.AttemptTakeItem(item, amount, false) != null) {
+
                     float tdist = calcDist(mcm, giver);
                     if (tdist < dist) {
                         ret = mcm;
                         dist = tdist;
                     }
+                    
                 }
-            }
+            } 
             return ret;
         }
 
         public static float calcDist(SegmentEntity a, SegmentEntity b) {
-            return new Vector3(a.mnX - b.mnX, a.mnY - b.mnY, a.mnZ - b.mnZ).magnitude;
+            return new Vector3(a.mnX - b.mnX, a.mnY - b.mnY, a.mnZ - b.mnZ).sqrMagnitude;
         }
 
         public static float calcDist(SegmentEntity a, Vector3 pos) {
-            return new Vector3(a.mnX - pos.x, a.mnY - pos.y, a.mnZ - pos.z).magnitude;
+            return new Vector3(a.mnX - pos.x, a.mnY - pos.y, a.mnZ - pos.z).sqrMagnitude;
         }
 
         public void Merge(MassCrateModuleManager mcmm) {
             // First, assign this MCMM as the manager for all modules controlled by the old manager
-            foreach (MassCrateModule mcm in mcmm.modules.Keys) {
+            foreach (MassCrateModule mcm in mcmm.modules) {
                 Add(mcm);
             }
 
@@ -183,17 +178,21 @@ namespace VicisFCEMod.Machines {
 
         public int getNumItems() {
             int ret = 0;
-            foreach (MassCrateModule m in modules.Keys) {
-                ret += m.getNumItems();
+            
+            for (int i = 0; i < modules.Count; ++i) {
+                ret += modules[i].getNumItems();
             }
+
             return ret;
         }
 
         public int getMaxItems() {
             int ret = 0;
-            foreach (MassCrateModule m in modules.Keys) {
-                ret += m.getMaxItems();
-            }
+            
+            for(int i = 0; i < modules.Count; ++i) {
+                ret += modules[i].getMaxItems();
+            }            
+            
             return ret;
         }
     }
