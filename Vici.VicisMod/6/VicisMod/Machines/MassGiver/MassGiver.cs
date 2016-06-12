@@ -422,7 +422,7 @@ namespace VicisFCEMod.Machines {
                 ItemManager.instance.DropItem(items[i], mnX, mnY, mnZ, Vector3.zero);
             }
             for (int i = 0; i < carriedItems.Count; ++i) {
-                if (items[i] == null) continue;
+                if (carriedItems[i] == null) continue;
                 ItemManager.instance.DropItem(carriedItems[i], mnX, mnY, mnZ, Vector3.zero);
             }
             items.Clear();
