@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GenericAutoCrafterDataEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<FriendlyName>Diamond To Emerald</FriendlyName>
+	<SpawnObject>PlasmaHeadCharger</SpawnObject>
+	<Value>Vici.DiamondToEmerald</Value>
+			
+	<PowerUsePerSecond>1000</PowerUsePerSecond>  <!-- optional -->
+	<PowerTransferPerSecond>1200</PowerTransferPerSecond>  <!-- optional -->
+	<MaxPowerStorage>10000</MaxPowerStorage>  <!-- optional -->
+	<CraftingString>Converting...</CraftingString>
+	<CraftTime>100</CraftTime>
+	<OptionalIngredients>false</OptionalIngredients>  <!-- optional -->
+	<Recipe>
+		<Key>EmeraldCrystal</Key>
+		<CraftedKey>EmeraldCrystal</CraftedKey>
+		<CraftedAmount>1</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Key>DiamondCrystal</Key>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Spend power to convert Diamond Crystals to Emerald Crystals</Description>
+	</Recipe>
+</GenericAutoCrafterDataEntry>

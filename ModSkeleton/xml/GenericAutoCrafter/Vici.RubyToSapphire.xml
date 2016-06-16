@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GenericAutoCrafterDataEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<FriendlyName>Ruby To Sapphire</FriendlyName>
+	<SpawnObject>PlasmaHeadCharger</SpawnObject>
+	<Value>Vici.RubyToSapphire</Value>
+			
+	<PowerUsePerSecond>1000</PowerUsePerSecond>  <!-- optional -->
+	<PowerTransferPerSecond>1200</PowerTransferPerSecond>  <!-- optional -->
+	<MaxPowerStorage>10000</MaxPowerStorage>  <!-- optional -->
+	<CraftingString>Converting...</CraftingString>
+	<CraftTime>100</CraftTime>
+	<OptionalIngredients>false</OptionalIngredients>  <!-- optional -->
+	<Recipe>
+		<Key>SapphireCrystal</Key>
+		<CraftedKey>SapphireCrystal</CraftedKey>
+		<CraftedAmount>1</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Key>RubyCrystal</Key>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Spend power to convert Ruby Crystals to Sapphire Crystals</Description>
+	</Recipe>
+</GenericAutoCrafterDataEntry>

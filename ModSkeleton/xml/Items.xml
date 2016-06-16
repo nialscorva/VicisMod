@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfItemEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ItemEntry>
+		<Key>Vici.CrystalGrowthMatrix</Key>
+		<Name>Crystal Growth Matrix</Name>
+		<Plural>Crystal Growth Matrices</Plural>
+		<Type>ItemStack</Type>
+		<Category>CraftingIngredient</Category>
+		<Sprite>RecombinedOrganicMatter</Sprite>
+		<Object>UnknownItem</Object>
+		<ScanRequirements>
+			<Scan>SugaliteCrystal</Scan>
+		</ScanRequirements>
+	</ItemEntry>
+</ArrayOfItemEntry>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GenericAutoCrafterDataEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<FriendlyName>Topaz To Sugalite</FriendlyName>
+	<SpawnObject>PlasmaHeadCharger</SpawnObject>
+	<Value>Vici.TopazToSugalite</Value>
+			
+	<PowerUsePerSecond>1000</PowerUsePerSecond>  <!-- optional -->
+	<PowerTransferPerSecond>1200</PowerTransferPerSecond>  <!-- optional -->
+	<MaxPowerStorage>10000</MaxPowerStorage>  <!-- optional -->
+	<CraftingString>Converting...</CraftingString>
+	<CraftTime>100</CraftTime>
+	<OptionalIngredients>false</OptionalIngredients>  <!-- optional -->
+	<Recipe>
+		<Key>SugaliteCrystal</Key>
+		<CraftedKey>SugaliteCrystal</CraftedKey>
+		<CraftedAmount>1</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Key>TopazCrystal</Key>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Spend power to convert Topaz Crystals to Sugalite Crystals</Description>
+	</Recipe>
+</GenericAutoCrafterDataEntry>
