@@ -1,0 +1,23 @@
+<MaterialEntry>
+	<Name>Mass Crate Module 200</Name>
+	<Pages>
+		<Page>
+			<Paragraphs>
+				<Title>
+					<Text>Mass Crate Module 200</Text>
+				</Title>
+				<Icon>
+					<Name>Bound Metal Crate</Name>
+					<Alignment>Center</Alignment>
+				</Icon>
+				<Paragraph>
+					<Text>Stores more contents than the normal block.  TEST TEST</Text>
+				</Paragraph>
+				<Spacer/>
+				<Paragraph>
+					<Text>Use E to set a crate to only accept one type of item.  Shift-E clears the settings</Text>
+				</Paragraph>
+			</Paragraphs>
+		</Page>				
+	</Pages>
+</MaterialEntry>
